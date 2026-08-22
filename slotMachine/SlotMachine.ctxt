@@ -1,0 +1,18 @@
+#BlueJ class context
+#Sat Aug 22 12:50:12 COT 2026
+comment0.target=SlotMachine
+comment1.target=SlotMachine()
+comment1.text=\r\n Constructor for objects of class SlotMachine\r\n
+comment2.params=pos
+comment2.target=void addWheel(int)
+comment2.text=\r\n Adds an empty wheel on the indicated position.\r\n
+comment3.params=pos
+comment3.target=void delWheel(int)
+comment3.text=\r\n Delete a wheel on the indicated position.\r\n
+comment4.target=boolean ok()
+comment4.text=\r\n @return true if the last operation was succeed\r\n
+comment5.target=void succeed()
+comment6.target=void fail()
+comment7.params=value min max
+comment7.target=int clamp(int, int, int)
+numComments=8
