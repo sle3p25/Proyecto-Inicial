@@ -1,15 +1,26 @@
 #BlueJ class context
-#Sat Aug 22 15:27:32 COT 2026
+#Sat Aug 22 17:09:00 COT 2026
 comment0.target=Wheel
 comment1.target=Wheel()
 comment1.text=\ Create a roulette wheel without symbols \r\n \r\n
+comment10.params=value min max
+comment10.target=int clamp(int, int, int)
 comment2.params=pos color
 comment2.target=void addSymbol(int, java.lang.String)
 comment2.text=\ \r\n add a color \r\n
-comment3.params=color
-comment3.target=boolean delSymbol(java.lang.String)
-comment3.text=\r\n Remove the specified color\r\n
-comment4.target=int size()
-comment5.params=value min max
-comment5.target=int clamp(int, int, int)
-numComments=6
+comment3.target=boolean spin()
+comment3.text=\ \r\n Choose a color at random \r\n
+comment4.params=symbol
+comment4.target=boolean place(java.lang.String)
+comment4.text=\ \r\n enter the current symbol \r\n
+comment5.target=java.lang.String[] getSymbols()
+comment5.text=\r\n colors of the symbols on the wheel, in order.\r\n
+comment6.target=java.lang.String getCurrentSymbol()
+comment6.text=\r\n The symbol currently visible on the wheel.\r\n
+comment7.target=int distinctCount()
+comment7.text=\r\n @return Number of distinct symbols (unique colors) on the wheel. (AI usage)\r\n
+comment8.params=color
+comment8.target=boolean delSymbol(java.lang.String)
+comment8.text=\r\n Remove the specified color\r\n
+comment9.target=int size()
+numComments=11
