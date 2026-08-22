@@ -53,7 +53,7 @@ public class SlotMachine
         int val = clamp(pos-1,0,wheels.size()-1);
         Wheel w = wheels.get(val);
         w.addSymbol(w.size()+1,color);
-        succed();
+        succeed();
     }
     
     
