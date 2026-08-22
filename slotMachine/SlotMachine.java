@@ -45,6 +45,11 @@ public class SlotMachine
         succeed();
     }
     
+    /**
+     * Add a symbol of a given color.
+     */
+    
+    
     public void addSymbol (int pos, String color){
         if ( wheels.isEmpty()){
             fail();
@@ -54,6 +59,18 @@ public class SlotMachine
         Wheel w = wheels.get(val);
         w.addSymbol(w.size()+1,color);
         succeed();
+    }
+    
+     public void delSymbol(String symbol) {
+        boolean removed = false;
+        for (Wheel w : wheels) {
+            removed = w.delSymbol(symbol) || removed;
+        }
+        if (removed) {
+            succeed();
+        } else {
+            fail();
+        }
     }
     
     

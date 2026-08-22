@@ -1,5 +1,5 @@
 #BlueJ class context
-#Sat Aug 22 14:58:40 COT 2026
+#Sat Aug 22 15:27:33 COT 2026
 comment0.target=SlotMachine
 comment1.target=SlotMachine()
 comment1.text=\r\n Constructor for objects of class SlotMachine\r\n
@@ -11,10 +11,13 @@ comment3.target=void delWheel(int)
 comment3.text=\r\n Delete a wheel on the indicated position.\r\n
 comment4.params=pos color
 comment4.target=void addSymbol(int, java.lang.String)
-comment5.target=boolean ok()
-comment5.text=\r\n @return true if the last operation was succeed\r\n
-comment6.target=void succeed()
-comment7.target=void fail()
-comment8.params=value min max
-comment8.target=int clamp(int, int, int)
-numComments=9
+comment4.text=\r\n Add a symbol of a given color.\r\n
+comment5.params=symbol
+comment5.target=void delSymbol(java.lang.String)
+comment6.target=boolean ok()
+comment6.text=\r\n @return true if the last operation was succeed\r\n
+comment7.target=void succeed()
+comment8.target=void fail()
+comment9.params=value min max
+comment9.target=int clamp(int, int, int)
+numComments=10
