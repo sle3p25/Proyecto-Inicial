@@ -6,29 +6,39 @@
  * @author Juan Pulido - Julian Rodriguez
  * @version August 22
  */
+import java.util.ArrayList;
 public class Wheel
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Wheel
+    private ArrayList<String> symbols;
+    
+    /** Create a roulette wheel without symbols 
+     * 
      */
-    public Wheel()
-    {
-        // initialise instance variables
-        x = 0;
+    public Wheel(){
+        symbols = new ArrayList<String>();
+    }
+    /** 
+     * add a color 
+     */
+    public void addSymbol (int pos, String color){
+        int val = clamp(pos -1, 0, symbols.size());
+        symbols.add(val, color);
+    }
+    /**
+     * Remove the specified color
+     */
+    public boolean delSymbol(String color) {
+        return symbols.remove(color);
+    }
+    
+    public int size() {
+        return symbols.size();
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    private int clamp(int value, int min, int max) {
+        if (value < min) return min;
+        if (value > max) return max;
+        return value;
     }
+    
 }

@@ -1,10 +1,15 @@
 #BlueJ class context
-#Sat Aug 22 12:32:59 COT 2026
+#Sat Aug 22 14:44:09 COT 2026
 comment0.target=Wheel
-comment0.text=\r\n Wheel.\r\n Represents a slot machine's wheel.\r\n\r\n @author Juan Pulido - Julian Rodriguez\r\n @version August 22\r\n
 comment1.target=Wheel()
-comment1.text=\r\n Constructor for objects of class Wheel\r\n
-comment2.params=y
-comment2.target=int sampleMethod(int)
-comment2.text=\r\n An example of a method - replace this comment with your own\r\n\r\n @param  y  a sample parameter for a method\r\n @return    the sum of x and y\r\n
-numComments=3
+comment1.text=\ Create a roulette wheel without symbols \r\n \r\n
+comment2.params=pos color
+comment2.target=void addSymbol(int, java.lang.String)
+comment2.text=\ \r\n add a color \r\n
+comment3.params=color
+comment3.target=boolean delSymbol(java.lang.String)
+comment3.text=\r\n Remove the specified color\r\n
+comment4.target=int size()
+comment5.params=value min max
+comment5.target=int clamp(int, int, int)
+numComments=6

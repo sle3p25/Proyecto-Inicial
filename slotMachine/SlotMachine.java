@@ -45,6 +45,33 @@ public class SlotMachine
         succeed();
     }
     
+    public void addSymbol (int pos, String color){
+        if ( wheels.isEmpty()){
+            fail();
+            return;
+        }
+        int val = clamp(pos-1,0,wheels.size()-1);
+        Wheel w = wheels.get(val);
+        w.addSymbol(w.size()+1,color);
+        succed();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * @return true if the last operation was succeed
      */
