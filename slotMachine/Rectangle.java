@@ -150,9 +150,10 @@ public class Rectangle{
     }
     
     /**
-     * Change the color. 
-     * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
-     * "magenta" and "black".
+     * Change the color.
+     * @param color the new color, given as a standard CSS3 color name
+     * (e.g. "red", "gold", "dimgray", "orchid"). Unknown names are drawn
+     * as black.
      */
     public void changeColor(String newColor){
         color = newColor;

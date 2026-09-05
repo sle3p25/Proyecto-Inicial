@@ -1,0 +1,25 @@
+#BlueJ class context
+#Sat Sep 05 12:43:25 COT 2026
+comment0.target=Symbols
+comment1.target=Symbols()
+comment1.text=\r\n Create an empty collection of symbols.\r\n
+comment2.params=pos color
+comment2.target=void add(int, java.lang.String)
+comment2.text=\r\n Add a color at the given position. Positions are 1-based; a\r\n position below 1 is clamped to 1 and a position past the end is\r\n clamped to the end.\r\n
+comment3.params=color
+comment3.target=boolean delete(java.lang.String)
+comment3.text=\r\n Remove one occurrence of the given color.\r\n @return true if the color was present and was removed.\r\n
+comment4.params=color
+comment4.target=boolean contains(java.lang.String)
+comment4.text=\r\n @return true if the given color belongs to this collection.\r\n
+comment5.target=java.lang.String[] toArray()
+comment5.text=\r\n @return the colors in this collection, in order, starting at\r\n position 1.\r\n
+comment6.target=int size()
+comment6.text=\r\n @return the number of colors currently in the collection.\r\n
+comment7.target=boolean isEmpty()
+comment7.text=\r\n @return true if the collection has no colors.\r\n
+comment8.target=int distinctCount()
+comment8.text=\r\n @return the number of distinct colors in the collection.\r\n
+comment9.params=value min max
+comment9.target=int clamp(int, int, int)
+numComments=10

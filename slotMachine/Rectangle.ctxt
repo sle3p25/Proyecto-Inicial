@@ -1,5 +1,5 @@
 #BlueJ class context
-#Sat Aug 22 23:46:47 COT 2026
+#Sat Sep 05 12:43:25 COT 2026
 comment0.target=Rectangle
 comment0.text=\r\n A rectangle that can be manipulated and that draws itself on a canvas.\r\n \r\n @author  Michael Kolling and David J. Barnes (Modified)\r\n @version 1.0  (15 July 2000)()\r\n
 comment1.target=Rectangle()
@@ -15,7 +15,7 @@ comment12.target=void changeSize(int, int)
 comment12.text=\r\n Change the size to the new size\r\n @param newHeight the new height in pixels. newHeight must be >\=0.\r\n @param newWidht the new width in pixels. newWidth must be >\=0.\r\n
 comment13.params=newColor
 comment13.target=void changeColor(java.lang.String)
-comment13.text=\r\n Change the color. \r\n @param color the new color. Valid colors are "red", "yellow", "blue", "green",\r\n "magenta" and "black".\r\n
+comment13.text=\r\n Change the color.\r\n @param color the new color, given as a standard CSS3 color name\r\n (e.g. "red", "gold", "dimgray", "orchid"). Unknown names are drawn\r\n as black.\r\n
 comment14.target=void draw()
 comment14.text=\r\n Draw the rectangle with current specifications on screen.\r\n
 comment15.target=void erase()
