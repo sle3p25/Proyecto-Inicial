@@ -1,0 +1,10 @@
+#BlueJ class context
+#Sat Sep 05 22:50:22 COT 2026
+comment0.target=SlotMachineCC2Test
+comment1.target=void setUp()
+comment1.text=\r\n Sets up the test fixture before each test execution.\r\n Initializes a fresh SlotMachine instance.\r\n
+comment2.target=void accordingPgRpShouldReflectSwapInConfiguration()
+comment2.text=\r\n Verifies that swapping two wheels is correctly reflected in the current configuration array.\r\n
+comment3.target=void accordingPgRpShouldIgnoreLockedWheelWhenApplyingConfiguration()
+comment3.text=\r\n Verifies that setting a configuration skips locked wheels while correctly updating unlocked ones.\r\n
+numComments=4

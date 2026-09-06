@@ -1,0 +1,24 @@
+#BlueJ class context
+#Sat Sep 05 22:50:22 COT 2026
+comment0.target=SlotMachineC2Test
+comment1.target=void setUp()
+comment1.text=\r\n Sets up the test fixture before each test execution.\r\n Initializes a fresh SlotMachine instance.\r\n
+comment10.target=void accordingPgRpShouldFailWhenConfigurationSizeDoesNotMatchWheelCount()
+comment10.text=\r\n Verifies that passing a symbol array whose length does not match the wheel count causes the operation to fail.\r\n
+comment2.target=void accordingPgRpShouldSwapTwoWheelsSymbols()
+comment2.text=\r\n Verifies that swapping two wheels correctly exchanges their active symbols.\r\n
+comment3.target=void accordingPgRpShouldNotThrowWhenSwappingWithoutEnoughWheels()
+comment3.text=\r\n Verifies that attempting to swap when there are not enough wheels fails gracefully\r\n without throwing an unhandled exception.\r\n
+comment4.target=void accordingPgRpShouldKeepLockedWheelUnchangedWhenSpinningAll()
+comment4.text=\r\n Verifies that a locked wheel retains its current symbol when the machine spins.\r\n
+comment5.target=void accordingPgRpShouldAllowSpinAfterUnlock()
+comment5.text=\r\n Verifies that unlocking a previously locked wheel allows it to spin again successfully.\r\n
+comment6.target=void accordingPgRpShouldAdvanceExactlyOneStep()
+comment6.text=\r\n Verifies that spinning a specific wheel by one step advances to the next symbol in sequence.\r\n
+comment7.target=void accordingPgRpShouldWrapAroundAfterFullRotation()
+comment7.text=\r\n Verifies that spinning a wheel for a full cycle (equal to symbol count) wraps around to the initial symbol.\r\n
+comment8.target=void accordingPgRpShouldNotMoveLockedWheelWhenRotatingSteps()
+comment8.text=\r\n Verifies that attempting to spin a locked wheel by steps leaves it unmoved and reports a failure status.\r\n
+comment9.target=void accordingPgRpShouldReachJackpotWithGivenConfiguration()
+comment9.text=\r\n Verifies that applying a matching symbol array triggers a jackpot state.\r\n
+numComments=11

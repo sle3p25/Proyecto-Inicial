@@ -226,7 +226,7 @@ public class SlotMachine
         ok = false;
         if (visible) {
             JOptionPane.showMessageDialog(null, reason,
-                "Operación no realizada", JOptionPane.WARNING_MESSAGE);
+                "Operation not completed", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -237,8 +237,8 @@ public class SlotMachine
     private void announceJackpotIfReached() {
         if (visible && isJackpot()) {
             JOptionPane.showMessageDialog(null,
-                "¡JACKPOT! Todas las ruedas muestran " + configuration()[0] + ".",
-                "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
+                "JACKPOT! All wheels show " + configuration()[0] + ".",
+                "Congratulations!", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -349,4 +349,134 @@ public class SlotMachine
         wheelShapes.clear();
         succeed();
     }
+    
+    
+    /**
+     * exchanges the positions of two roulette wheels. 
+     * It temporarily saves the first wheel in memory, moves the second wheel 
+     * into the first wheel's slot, and 
+     * then assigns the saved copy of the first wheel to the second wheel's original 
+     * slot.
+     */
+    public void swap(int wheel1, int wheel2) {
+        if (wheels.size() < 2) {
+            fail("Not enough wheels to swap.");
+            return;
+        }
+        int i1 = clamp(wheel1 - 1, 0, wheels.size() - 1);
+        int i2 = clamp(wheel2 - 1, 0, wheels.size() - 1);
+        Wheel temp = wheels.get(i1);
+        wheels.set(i1, wheels.get(i2));
+        wheels.set(i2, temp);
+        refreshShapes();
+        succeed();
+    }
+     /**
+     * Locks a wheel
+     */
+    public void lock(int wheel) {
+        if (wheels.isEmpty()) {
+            fail("No wheels available to lock");
+            return;
+        }
+        int idx = clamp(wheel - 1, 0, wheels.size() - 1);
+        wheels.get(idx).lock();
+        succeed();
+    }
+    /**
+     * Unlocks a wheel
+     */
+    public void unlock(int wheel) {
+        if (wheels.isEmpty()) {
+            fail("No wheels available to unlock");
+            return;
+        }
+        int idx = clamp(wheel - 1, 0, wheels.size() - 1);
+        wheels.get(idx).unlock();
+        succeed();
+    }
+    
+    /**
+     * Rotates the indicated wheel forward the given number of steps. If
+     * the machine is visible, the motion is shown one step at a time
+     * (with a short pause between steps) instead of jumping straight to
+     * the final symbol.
+     */
+    public void spin(int wheel, int steps) {
+        if (wheels.isEmpty()) {
+            fail("There are no wheels in the machine.");
+            return;
+        }
+        if (steps < 0) {
+            fail("The number of steps cannot be negative.");
+            return;
+        }
+        int idx = clamp(wheel - 1, 0, wheels.size() - 1);
+        Wheel w = wheels.get(idx);
+        boolean moved = false;
+        for (int s = 0; s < steps; s++) {
+            if (!w.advance()) {
+                break;
+            }
+            moved = true;
+            refreshShapes();
+            if (visible) {
+                Canvas.getCanvas().wait(150);
+            }
+        }
+        if (moved || steps == 0) {
+            succeed();
+            announceJackpotIfReached();
+        } else {
+            fail("The wheel is locked or has no symbols to rotate.");
+        }
+    }
+
+    /**
+     * Sets the exact configuration of the machine: applies one color per
+     * wheel, skipping any wheel that is locked. Mainly useful for testing
+     * isJackpot() deterministically, without depending on chance.
+     */
+    public void spin(String[] setSymbols) {
+        if (setSymbols == null) {
+            fail("Configuration cannot be null.");
+            return;
+        }
+        if (setSymbols.length != wheels.size()) {
+            fail("Configuration must provide one color for each wheel.");
+            return;
+        }
+        boolean allPlaced = true;
+        for (int i = 0; i < wheels.size(); i++) {
+            Wheel w = wheels.get(i);
+            if (w.isLocked()) {
+                continue;
+            }
+            if (!w.place(setSymbols[i])) {
+                allPlaced = false;
+            }
+        }
+        refreshShapes();
+        if (allPlaced) {
+            succeed();
+            announceJackpotIfReached();
+        } else {
+            fail("One of the specified colors does not exist on its corresponding wheel.");
+        }
+    }
+
+
+    
+    
+    
+    
+    
 }
+
+
+
+
+
+
+
+

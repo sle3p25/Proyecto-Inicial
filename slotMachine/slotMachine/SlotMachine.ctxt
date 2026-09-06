@@ -1,5 +1,5 @@
 #BlueJ class context
-#Sat Sep 05 15:56:55 COT 2026
+#Sat Sep 05 22:50:22 COT 2026
 comment0.target=SlotMachine
 comment1.target=SlotMachine()
 comment1.text=\r\n Constructor for objects of class SlotMachine\r\n
@@ -33,6 +33,21 @@ comment21.text=\r\n Shows or hides every shape according to the visible flag, an
 comment22.params=value min max
 comment22.target=int clamp(int, int, int)
 comment23.target=void exit()
+comment24.params=wheel1 wheel2
+comment24.target=void swap(int, int)
+comment24.text=\r\n exchanges the positions of two roulette wheels. \r\n It temporarily saves the first wheel in memory, moves the second wheel \r\n into the first wheel's slot, and \r\n then assigns the saved copy of the first wheel to the second wheel's original \r\n slot.\r\n
+comment25.params=wheel
+comment25.target=void lock(int)
+comment25.text=\r\n Locks a wheel\r\n
+comment26.params=wheel
+comment26.target=void unlock(int)
+comment26.text=\r\n Unlocks a wheel\r\n
+comment27.params=wheel steps
+comment27.target=void spin(int, int)
+comment27.text=\r\n Rotates the indicated wheel forward the given number of steps. If\r\n the machine is visible, the motion is shown one step at a time\r\n (with a short pause between steps) instead of jumping straight to\r\n the final symbol.\r\n
+comment28.params=setSymbols
+comment28.target=void spin(java.lang.String[])
+comment28.text=\r\n Sets the exact configuration of the machine\: applies one color per\r\n wheel, skipping any wheel that is locked. Mainly useful for testing\r\n isJackpot() deterministically, without depending on chance.\r\n
 comment3.target=void makeVisible()
 comment4.target=void makeInvisible()
 comment5.params=pos
@@ -48,4 +63,4 @@ comment8.target=void placeSymbol(int, java.lang.String)
 comment9.params=wheel
 comment9.target=void spin(int)
 comment9.text=\r\n Turn only the indicated wheel.\r\n
-numComments=24
+numComments=29

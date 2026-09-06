@@ -13,6 +13,8 @@ public class Wheel
     private Symbols symbols;
     private String currentSymbol;
     private Random random;
+    private boolean locked;
+    private int currentIndex;
 
     /** Create a roulette wheel without symbols, using a normal
      *  (non-seeded) random number generator to pick the symbol on each spin.
@@ -37,6 +39,28 @@ public class Wheel
     public Wheel(Random random){
         symbols = new Symbols();
         this.random = random;
+        locked = false;
+        currentIndex = -1;
+    }
+    /**
+     * To lock 
+     */
+    public void lock() {
+        locked = true;
+    }
+    
+    /**
+     * To unlock 
+     */
+    public void unlock() {
+        locked = false;
+    }
+    /**
+     * Checks whether the specified wheel is locked. Returns true if locked, 
+     * false otherwise.
+     */
+    public boolean isLocked() {
+        return locked;
     }
 
     /**
@@ -53,10 +77,14 @@ public class Wheel
      * supplied to this wheel (see the constructors above).
      */
     public boolean spin(){
+        if (locked) {
+            return false;
+        }
         if (symbols.isEmpty()){
             return false;
         }
         int i = random.nextInt(symbols.size());
+        currentIndex = i;
         currentSymbol = symbols.toArray()[i];
         return true;
     }
@@ -65,11 +93,27 @@ public class Wheel
      * enter the current symbol
      */
     public boolean place(String symbol){
-        if (symbols.contains(symbol)){
-            currentSymbol = symbol;
-            return true;
+        int idx = indexOf(symbol);
+        if (idx == -1) {
+            return false;
         }
-        return false;
+        currentIndex = idx;
+        currentSymbol = symbol;
+        return true;
+    }
+
+    /**
+     * @return the position of the given color in the symbol list, or -1
+     *         if the wheel does not have that color.
+     */
+    private int indexOf(String color) {
+        String[] all = symbols.toArray();
+        for (int i = 0; i < all.length; i++) {
+            if (all[i].equals(color)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -94,14 +138,36 @@ public class Wheel
     }
 
     /**
-     * Remove the specified color
+     * Remove the specified color. If the symbol currently shown survives
+     * the removal, currentIndex is resynced to its new position (removing
+     * an earlier symbol shifts everything after it back by one); if the
+     * symbol shown was the one removed, currentIndex resets to -1.
      */
     public boolean delSymbol(String color) {
-        return symbols.delete(color);
+        boolean removed = symbols.delete(color);
+        if (removed && currentSymbol != null) {
+            currentIndex = indexOf(currentSymbol);
+        }
+        return removed;
     }
 
     public int size() {
         return symbols.size();
     }
-
+    
+    /**
+     * Roulette effect
+     */
+    
+    public boolean advance() {
+        if (locked || symbols.isEmpty()) {
+            return false;
+        }
+        int size = symbols.size();
+        currentIndex = (currentIndex + 1) % size;
+        currentSymbol = symbols.toArray()[currentIndex];
+        return true;
+    }
+    
+    
 }
