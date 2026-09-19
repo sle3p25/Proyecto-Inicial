@@ -1,0 +1,22 @@
+#BlueJ class context
+#Sat Sep 19 16:22:55 COT 2026
+comment0.target=SlotMachineC1Test
+comment1.target=void setUp()
+comment10.target=void accordingPgRpShouldFailToPlaceNonExistingSymbol()
+comment11.target=void accordingPgRpShouldSpinSingleWheelSuccessfully()
+comment12.target=void accordingPgRpShouldFailToSpinSingleWheelWhenNoWheelsExist()
+comment13.target=void accordingPgRpShouldSpinAllWheels()
+comment14.target=void accordingPgRpShouldFailToSpinAllWheelsWhenNoWheelsExist()
+comment15.target=void accordingPgRpShouldListAllSymbolsAcrossWheels()
+comment16.target=void accordingPgRpShouldCountDistinctSymbolsAcrossWheels()
+comment17.target=void accordingPgRpShouldDetectJackpotWhenAllWheelsShowSameSymbol()
+comment18.target=void accordingPgRpShouldNotDetectJackpotWhenWheelsDiffer()
+comment2.target=void accordingPgRpShouldAddWheelAtGivenPosition()
+comment3.target=void accordingPgRpShouldFailToDeleteWheelWhenMachineIsEmpty()
+comment4.target=void accordingPgRpShouldDeleteWheelAtGivenPosition()
+comment5.target=void accordingPgRpShouldFailToAddSymbolWhenNoWheelsExist()
+comment6.target=void accordingPgRpShouldAddSymbolToWheel()
+comment7.target=void accordingPgRpShouldRemoveExistingSymbol()
+comment8.target=void accordingPgRpShouldFailToRemoveNonExistingSymbol()
+comment9.target=void accordingPgRpShouldPlaceExistingSymbolAsCurrent()
+numComments=19

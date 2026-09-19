@@ -1,0 +1,8 @@
+#BlueJ class context
+#Sat Sep 19 15:51:10 COT 2026
+comment0.target=StepPacer
+comment0.text=\r\n Generalizes how SlotMachine paces a step-by-step animation (used by spin(wheel,steps) to \r\n make each rotation step visible instead of jumping straight to the final symbol).\r\n\r\n @author Juan Pulido - Julian Rodriguez\r\n @version September 19\r\n
+comment1.params=milliseconds
+comment1.target=void pause(int)
+comment1.text=\r\n Pauses for approximately the given number of miliseconds\r\n\r\n @param  milliseconds how long to pause.\r\n
+numComments=2

@@ -25,17 +25,32 @@ public class SlotMachine
     private Rectangle bodyShape;
     private boolean visible;
     private boolean ok;
+    private StepPacer pacer;
 
     /**
-     * Constructor for objects of class SlotMachine
+     * Constructor for objects of class SlotMachine. Paces the
+     * step-by-step animation in spin(wheel, steps) with a plain
+     * Thread.sleep.
      */
     public SlotMachine(){
+        this(new ThreadSleepPacer());
+    }
+    
+    /**
+     * Constructor for objects of class SlotMachine, letting the caller
+     * decide how the step-by-step animation in spin(wheel, steps) is
+     * paced.
+     *
+     * @param pacer used to pause between animation steps.
+     */
+    public SlotMachine(StepPacer pacer){
         wheels = new ArrayList<Wheel>();
         wheelShapes = new ArrayList<Rectangle>();
         jackpotShape = null;
         bodyShape = null;
         visible = false;
         ok = true;
+        this.pacer = pacer;
     }
 
     /**
@@ -421,7 +436,7 @@ public class SlotMachine
             moved = true;
             refreshShapes();
             if (visible) {
-                Canvas.getCanvas().wait(150);
+                pacer.pause(150);
             }
         }
         if (moved || steps == 0) {
