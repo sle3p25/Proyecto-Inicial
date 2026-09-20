@@ -1,0 +1,15 @@
+#BlueJ class context
+#Sun Sep 20 15:05:43 COT 2026
+comment0.target=SlotMachineContestTest
+comment1.target=void setUp()
+comment10.target=void accordingPgRpSolveShouldNeverExceedALooseActionBudget()
+comment2.params=machine n
+comment2.target=void align(SlotMachine, int)
+comment3.target=void accordingPgRpShouldReachJackpotForTwoWheels()
+comment4.target=void accordingPgRpShouldReachJackpotForThreeWheels()
+comment5.target=void accordingPgRpShouldReachJackpotForATenWheelMachine()
+comment6.target=void accordingPgRpShouldDoNothingWhenMachineHasFewerThanTwoWheels()
+comment7.target=void accordingPgRpSolveShouldReturnNoActionsForATrivialMachine()
+comment8.target=void accordingPgRpSolveShouldReturnOnlyActionsWithValidWheelAndStepBounds()
+comment9.target=void accordingPgRpSolveShouldKeepTheMachineInvisibleWhileSolving()
+numComments=11

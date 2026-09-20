@@ -1,0 +1,10 @@
+#BlueJ class context
+#Sun Sep 20 15:05:43 COT 2026
+comment0.target=SlotMachineContest
+comment1.params=n
+comment1.target=int[][] solve(int)
+comment1.text=\r\n Solves the marat\u00F3n problem for a machine of n wheels/symbols\: builds\r\n its own invisible SlotMachine(n) and returns the sequence of\r\n rotations that brings it to a jackpot (all wheels showing the same\r\n symbol).\r\n\r\n @param n number of wheels (and symbols) of the machine to solve.\r\n @return the sequence of actions taken, each row {wheel, steps}\r\n         (both matching spin(wheel, steps)'s own 1-based numbering).\r\n
+comment2.params=n
+comment2.target=void simulate(int)
+comment2.text=\r\n Simulates, visibly, the resolution of the marat\u00F3n problem for a\r\n machine of n wheels/symbols\: builds its own visible SlotMachine(n)\r\n and runs the exact same strategy as solve(), so the animation shows\r\n the machine actually reaching a jackpot.\r\n\r\n @param n number of wheels (and symbols) of the machine to simulate.\r\n
+numComments=3

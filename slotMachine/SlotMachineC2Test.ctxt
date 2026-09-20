@@ -1,10 +1,20 @@
 #BlueJ class context
-#Sat Sep 19 16:13:12 COT 2026
+#Sun Sep 20 15:05:43 COT 2026
 comment0.target=SlotMachineC2Test
 comment1.target=void setUp()
 comment1.text=\r\n Sets up the test fixture before each test execution.\r\n Initializes a fresh SlotMachine instance.\r\n
 comment10.target=void accordingPgRpShouldFailWhenConfigurationSizeDoesNotMatchWheelCount()
 comment10.text=\r\n Verifies that passing a symbol array whose length does not match the wheel count causes the operation to fail.\r\n
+comment11.target=void accordingPgRpShouldFailWhenStepsIsNegative()
+comment11.text=\r\n Verifies that requesting a negative number of steps fails instead of\r\n silently doing nothing or throwing an unhandled exception.\r\n
+comment12.target=void accordingPgRpShouldSucceedWithoutMovingWhenStepsIsZero()
+comment12.text=\r\n Verifies that requesting zero steps is treated as a valid, successful\r\n no-op\: the wheel does not move but the operation still succeeds.\r\n
+comment13.target=void accordingPgRpShouldFailWhenConfigurationColorDoesNotExistOnWheel()
+comment13.text=\r\n Verifies that applying a configuration with a color that is not on\r\n its corresponding wheel fails, while colors that are valid are still\r\n applied to their wheels.\r\n
+comment14.target=void accordingPgRpShouldWorkWithACustomStepPacer()
+comment14.text=\r\n Verifies that spin(wheel, steps) does not depend on the default\r\n ThreadSleepPacer\: a completely different StepPacer, injected through\r\n the SlotMachine(StepPacer) constructor, produces the same result.\r\n
+comment15.params=milliseconds
+comment15.target=void pause(int)
 comment2.target=void accordingPgRpShouldSwapTwoWheelsSymbols()
 comment2.text=\r\n Verifies that swapping two wheels correctly exchanges their active symbols.\r\n
 comment3.target=void accordingPgRpShouldNotThrowWhenSwappingWithoutEnoughWheels()
@@ -21,4 +31,4 @@ comment8.target=void accordingPgRpShouldNotMoveLockedWheelWhenRotatingSteps()
 comment8.text=\r\n Verifies that attempting to spin a locked wheel by steps leaves it unmoved and reports a failure status.\r\n
 comment9.target=void accordingPgRpShouldReachJackpotWithGivenConfiguration()
 comment9.text=\r\n Verifies that applying a matching symbol array triggers a jackpot state.\r\n
-numComments=11
+numComments=16

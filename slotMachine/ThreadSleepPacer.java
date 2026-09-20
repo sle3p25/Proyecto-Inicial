@@ -9,11 +9,11 @@
  */
 public class ThreadSleepPacer implements StepPacer
 {
-    public void pause(int milliseconds){
+    public void pause(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
-        } catch (InterruptedException e){
-            
+        } catch (InterruptedException e) {
+            // ignore: a skipped pause does not affect correctness.
         }
     }
 }

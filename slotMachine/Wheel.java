@@ -168,4 +168,6 @@ public class Wheel
         currentSymbol = symbols.toArray()[currentIndex];
         return true;
     }
+    
+    
 }

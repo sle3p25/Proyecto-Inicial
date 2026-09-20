@@ -1,0 +1,43 @@
+PRUEBA DE ACEPTACIÓN 2 — simulate(n) muestra la solución animada hasta el jackpot
+Proyecto slotMachine — Ciclo No. 3/4 (Refactoring y Extensión)
+Autores: Juan Sebastián Pulido Gómez - Julian Rodríguez Pérez
+
+Objetivo
+--------
+Demostrar el Requisito funcional 15 (simular la solución, si es posible) y
+el requisito de diseño #4 del PDF de Ciclo 3: la SlotMachine debe quedar
+visible durante todo el proceso de simulate().
+
+Precondición
+------------
+Proyecto slotMachine abierto en BlueJ, compilado sin errores.
+
+Pasos
+-----
+1. En el banco de objetos, crear un objeto de la clase SlotMachineContest
+   (botón derecho sobre la clase > new SlotMachineContest()).
+
+2. Sobre ese objeto, invocar el método simulate(n), usando n = 5.
+
+   Resultado esperado: se abre una ventana de Canvas mostrando 5 ruedas de
+   colores. Se ve la animación de la máquina girando rueda por rueda, paso
+   a paso (con la misma pausa visual que ya usa spin(wheel,steps) en el
+   resto del simulador), hasta que las 5 ruedas terminan mostrando
+   exactamente el mismo color.
+
+3. Verificar que, al llegar a esa configuración, se dispara el aviso de
+   "JACKPOT! All wheels show <color>." mediante el JOptionPane, igual que
+   en cualquier otro jackpot detectado por el simulador.
+
+4. Cerrar la ventana de Canvas.
+
+5. Repetir los pasos 1 a 3 invocando simulate(3), para mostrar que el
+   mismo comportamiento se cumple también con el caso más pequeño no
+   trivial (n = 3).
+
+Criterio de aceptación
+-----------------------
+La prueba se considera exitosa si, en ambas ejecuciones (n = 5 y n = 3), la
+ventana de Canvas aparece desde el inicio, la animación es visible paso a
+paso, y termina mostrando el aviso de jackpot con todas las ruedas en el
+mismo color.

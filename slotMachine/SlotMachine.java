@@ -6,6 +6,8 @@
  * @version August 22
  */
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 
 public class SlotMachine
@@ -19,6 +21,24 @@ public class SlotMachine
     private static final String BODY_JACKPOT_COLOR = "gold";
     private static final String JACKPOT_LIGHT_COLOR = "gold";
 
+    /**
+     * Pool of valid CSS color names (recognized by Canvas/Rectangle for
+     * drawing) that SlotMachine(n) picks from to build a random palette.
+     * 50 entries, matching the maratón problem's upper bound on n.
+     */
+    private static final String[] COLOR_PALETTE = {
+        "aliceblue", "antiquewhite", "aqua", "aquamarine", "azure",
+        "beige", "bisque", "black", "blanchedalmond", "blue",
+        "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse",
+        "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson",
+        "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray",
+        "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange",
+        "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue",
+        "darkslategray", "darkturquoise", "darkviolet", "deeppink", "deepskyblue",
+        "dimgray", "dodgerblue", "firebrick", "floralwhite", "forestgreen",
+        "fuchsia", "gainsboro", "ghostwhite", "gold", "goldenrod"
+    };
+
     private ArrayList<Wheel> wheels;
     private ArrayList<Rectangle> wheelShapes;
     private Rectangle jackpotShape;
@@ -30,16 +50,22 @@ public class SlotMachine
     /**
      * Constructor for objects of class SlotMachine. Paces the
      * step-by-step animation in spin(wheel, steps) with a plain
-     * Thread.sleep.
+     * Thread.sleep (see ThreadSleepPacer).
      */
     public SlotMachine(){
         this(new ThreadSleepPacer());
     }
-    
+
     /**
      * Constructor for objects of class SlotMachine, letting the caller
      * decide how the step-by-step animation in spin(wheel, steps) is
      * paced.
+     *
+     * SlotMachine's own logic never depends on Thread.sleep, Canvas, or
+     * any other concrete pacing mechanism: it only depends on the
+     * StepPacer interface. This constructor exists so a different pacer
+     * (a different animation mechanism, or a test double that does not
+     * really wait) can be plugged in later without touching spin().
      *
      * @param pacer used to pause between animation steps.
      */
@@ -51,6 +77,51 @@ public class SlotMachine
         visible = false;
         ok = true;
         this.pacer = pacer;
+    }
+
+    /**
+     * Constructor for objects of class SlotMachine with n wheels and n
+     * distinct symbols (one shared palette of n colors, placed on every
+     * wheel), each wheel randomly spun to an initial position. This is
+     * the constructor used to set up an instance of the maratón problem:
+     * "create a machine with an equal number of wheels and symbols".
+     *
+     * @param n number of wheels (and, matching each other, the size of
+     *          the shared color palette every wheel gets). Values above
+     *          the size of the internal color pool (50) are clamped down
+     *          to it, since there are no more distinct CSS colors to draw
+     *          more symbols with.
+     */
+    public SlotMachine(int n){
+        this();
+        int wheelCount = Math.max(n, 0);
+        for (int i = 1; i <= wheelCount; i++) {
+            addWheel(i);
+        }
+        String[] palette = randomDistinctColors(wheelCount);
+        for (int w = 1; w <= wheelCount; w++) {
+            for (String color : palette) {
+                addSymbol(w, color);
+            }
+        }
+        for (int w = 1; w <= wheelCount; w++) {
+            spin(w);
+        }
+    }
+
+    /**
+     * Picks n distinct color names out of COLOR_PALETTE, in random order.
+     * @param n how many distinct colors to pick; clamped to the palette size.
+     */
+    private String[] randomDistinctColors(int n) {
+        int count = Math.min(Math.max(n, 0), COLOR_PALETTE.length);
+        ArrayList<String> pool = new ArrayList<String>(Arrays.asList(COLOR_PALETTE));
+        Collections.shuffle(pool);
+        String[] chosen = new String[count];
+        for (int i = 0; i < count; i++) {
+            chosen[i] = pool.get(i);
+        }
+        return chosen;
     }
 
     /**
@@ -182,14 +253,19 @@ public class SlotMachine
     }
 
     /**
-     * number of different colors on all the roulette wheels.
+     * Number of distinct colors currently showing across all wheels (not
+     * how many colors exist in their inventories). A freshly added wheel
+     * that has not spun or been placed yet shows no color, so it is not
+     * counted.
      */
     public int distinctSymbols() {
-        ArrayList<String> all = new ArrayList<String>();
-        for (String s : symbols()) {
-            all.add(s);
+        ArrayList<String> current = new ArrayList<String>();
+        for (String c : configuration()) {
+            if (c != null) {
+                current.add(c);
+            }
         }
-        return (int) all.stream().distinct().count();
+        return (int) current.stream().distinct().count();
     }
 
     /**

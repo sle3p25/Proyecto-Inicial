@@ -1,0 +1,45 @@
+PRUEBA DE ACEPTACIÓN 1 — solve(n) resuelve la maratón sin mostrar la máquina
+Proyecto slotMachine — Ciclo No. 3/4 (Refactoring y Extensión)
+Autores: Juan Sebastián Pulido Gómez - Julian Rodríguez Pérez
+
+Objetivo
+--------
+Demostrar el Requisito funcional 14 (solucionar el problema de la maratón) y
+el requisito de diseño #4 del PDF de Ciclo 3: la SlotMachine debe permanecer
+invisible durante todo el proceso de solve().
+
+Precondición
+------------
+Proyecto slotMachine abierto en BlueJ, compilado sin errores.
+
+Pasos
+-----
+1. En el banco de objetos, crear un objeto de la clase SlotMachineContest
+   (botón derecho sobre la clase > new SlotMachineContest()).
+
+2. Sobre ese objeto, invocar el método solve(n), usando n = 6.
+
+   Resultado esperado: no se abre ninguna ventana de Canvas en ningún
+   momento de la ejecución (la SlotMachine interna nunca se hace visible).
+   El método retorna un arreglo int[][] no vacío.
+
+3. Inspeccionar el resultado en el banco de objetos (botón derecho sobre el
+   resultado > Inspect, o clic para desplegarlo).
+
+   Resultado esperado: cada fila del arreglo tiene exactamente 2 columnas.
+   La primera columna (número de rueda) está siempre entre 1 y 6. La
+   segunda columna (pasos) está siempre entre 1 y 5 (nunca 0, nunca un giro
+   completo de n pasos).
+
+4. Repetir el paso 2 y 3 invocando solve(20).
+
+   Resultado esperado: mismo comportamiento (máquina invisible, arreglo
+   bien formado), y el número total de filas del arreglo se mantiene muy
+   por debajo del límite de 10.000 acciones que exige el problema original
+   (para n=20 se espera del orden de cientos de acciones, no miles).
+
+Criterio de aceptación
+-----------------------
+La prueba se considera exitosa si, en ningún momento de los pasos 2 y 4,
+aparece una ventana de Canvas en pantalla, y si los arreglos devueltos
+cumplen los rangos de wheel y steps descritos arriba.

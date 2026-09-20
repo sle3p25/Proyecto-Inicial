@@ -159,4 +159,80 @@ public class SlotMachineC2Test
 
         assertFalse(machine.ok());
     }
+
+    /**
+     * Verifies that requesting a negative number of steps fails instead of
+     * silently doing nothing or throwing an unhandled exception.
+     */
+    @Test
+    public void accordingPgRpShouldFailWhenStepsIsNegative() {
+        machine.addWheel(1);
+        machine.addSymbol(1, "red");
+        machine.placeSymbol(1, "red");
+
+        machine.spin(1, -1);
+
+        assertEquals("red", machine.configuration()[0]);
+        assertFalse(machine.ok());
+    }
+
+    /**
+     * Verifies that requesting zero steps is treated as a valid, successful
+     * no-op: the wheel does not move but the operation still succeeds.
+     */
+    @Test
+    public void accordingPgRpShouldSucceedWithoutMovingWhenStepsIsZero() {
+        machine.addWheel(1);
+        machine.addSymbol(1, "red");
+        machine.addSymbol(1, "blue");
+        machine.placeSymbol(1, "red");
+
+        machine.spin(1, 0);
+
+        assertEquals("red", machine.configuration()[0]);
+        assertTrue(machine.ok());
+    }
+
+    /**
+     * Verifies that applying a configuration with a color that is not on
+     * its corresponding wheel fails, while colors that are valid are still
+     * applied to their wheels.
+     */
+    @Test
+    public void accordingPgRpShouldFailWhenConfigurationColorDoesNotExistOnWheel() {
+        machine.addWheel(1);
+        machine.addWheel(2);
+        machine.addSymbol(1, "red");
+        machine.addSymbol(2, "red");
+
+        machine.spin(new String[]{"red", "purple"});
+
+        assertEquals("red", machine.configuration()[0]);
+        assertFalse(machine.ok());
+    }
+
+    /**
+     * Verifies that spin(wheel, steps) does not depend on the default
+     * ThreadSleepPacer: a completely different StepPacer, injected through
+     * the SlotMachine(StepPacer) constructor, produces the same result.
+     */
+    @Test
+    public void accordingPgRpShouldWorkWithACustomStepPacer() {
+        StepPacer noOpPacer = new StepPacer() {
+            public void pause(int milliseconds) {
+                // deliberately unrelated to Canvas or Thread.sleep, to
+                // prove spin(wheel, steps) does not depend on either.
+            }
+        };
+        SlotMachine custom = new SlotMachine(noOpPacer);
+        custom.addWheel(1);
+        custom.addSymbol(1, "red");
+        custom.addSymbol(1, "blue");
+        custom.placeSymbol(1, "red");
+
+        custom.spin(1, 1);
+
+        assertEquals("blue", custom.configuration()[0]);
+        assertTrue(custom.ok());
+    }
 }

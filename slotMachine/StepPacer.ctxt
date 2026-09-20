@@ -1,0 +1,8 @@
+#BlueJ class context
+#Sun Sep 20 15:05:43 COT 2026
+comment0.target=StepPacer
+comment0.text=\r\n Generalizes how SlotMachine paces a step-by-step animation (used by\r\n spin(wheel, steps) to make each rotation step visible instead of\r\n jumping straight to the final symbol).\r\n\r\n SlotMachine does not know or care HOW a pause is produced; it only\r\n knows it can ask a StepPacer to pause(milliseconds). Today the only\r\n implementation (ThreadSleepPacer) uses Thread.sleep, with nothing\r\n Canvas-specific about it, but the point of the interface is that\r\n SlotMachine's logic would not change even if that changed\: a future\r\n pacer could drive a different animation mechanism entirely, or a test\r\n could inject one that does not really wait at all.\r\n\r\n @author Juan Pulido - Julian Rodriguez\r\n @version September 19\r\n
+comment1.params=milliseconds
+comment1.target=void pause(int)
+comment1.text=\r\n Pauses for approximately the given number of milliseconds.\r\n @param milliseconds how long to pause.\r\n
+numComments=2
