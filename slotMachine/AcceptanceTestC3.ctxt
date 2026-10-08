@@ -1,0 +1,6 @@
+#BlueJ class context
+#Thu Oct 08 16:23:24 COT 2026
+comment0.target=AcceptanceTestC3
+comment0.text=\r\n Acceptance test - Cycle 3.\r\n\r\n Pre-made scenario that demonstrates the full marat\u00F3n problem\:\r\n SlotMachine(n) already covers steps 1-3 (creates the machine, the n\r\n wheels, and the n shared symbols, with a random initial spin). For\r\n step 4, SlotMachineContest.solve(machine, n) runs the three-phase\r\n solving algorithm directly on this same machine, so isJackpot() can be\r\n verified on it afterward - solve(n) alone would not let us do this,\r\n since it builds and keeps its own SlotMachine internally and never\r\n exposes it.\r\n\r\n Runs visible so it can be demonstrated live.\r\n\r\n To run it\: object bench > right-click the class > new AcceptanceTestC3()\r\n > right-click the object > run().\r\n\r\n @author Juan Sebasti\u00E1n Pulido G\u00F3mez - Julian Rodr\u00EDguez P\u00E9rez\r\n @version October 2026\r\n
+comment1.target=void run()
+numComments=2

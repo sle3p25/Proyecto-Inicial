@@ -1,0 +1,6 @@
+#BlueJ class context
+#Thu Oct 08 16:23:24 COT 2026
+comment0.target=AcceptanceTestC1
+comment0.text=\r\n Acceptance test - Cycle 1.\r\n\r\n Pre-made scenario\: builds a\r\n machine with 3 wheels that all share a single color ("red"), spins it,\r\n and verifies it ends in jackpot. Since each wheel has only one symbol,\r\n the result of spin() is deterministic even though it still uses real\r\n randomness internally (there is only one option to pick from on each\r\n wheel).\r\n\r\n Unlike unit tests (which run with the visual component disabled), this\r\n one runs visible, so it can be demonstrated live\: the Canvas window\r\n opens and the "JACKPOT\!" JOptionPane appears when it succeeds.\r\n\r\n To run it\: object bench > right-click the class > new AcceptanceTestC1()\r\n > right-click the object > run().\r\n\r\n @author Juan Sebasti\u00E1n Pulido G\u00F3mez - Julian Rodr\u00EDguez P\u00E9rez\r\n @version October 2026\r\n
+comment1.target=void run()
+numComments=2

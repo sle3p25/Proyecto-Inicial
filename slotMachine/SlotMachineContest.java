@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class SlotMachineContest
 {
     /**
-     * Solves the maratón problem for a machine of n wheels/symbols: builds
+     * Solves the maraton problem for a machine of n wheels/symbols: builds
      * its own invisible SlotMachine(n) and returns the sequence of
      * rotations that brings it to a jackpot (all wheels showing the same
      * symbol).
@@ -41,7 +41,24 @@ public class SlotMachineContest
      *         (both matching spin(wheel, steps)'s own 1-based numbering).
      */
     public int[][] solve(int n) {
-        SlotMachine machine = new SlotMachine(n);
+        return solve(new SlotMachine(n), n);
+    }
+
+    /**
+     * Solves the maraton problem for a machine the caller already built and
+     * keeps a reference to, instead of one this class creates internally.
+     * Same strategy and same result as solve(n); the only difference is
+     * that the caller can inspect "machine" afterward (for example with
+     * isJackpot()), something solve(n) does not allow since it never
+     * exposes the SlotMachine it works on.
+     *
+     * @param machine the machine to solve; must already have n wheels and
+     *                n symbols, the same shape SlotMachine(n) builds.
+     * @param n number of wheels (and symbols) of the machine to solve.
+     * @return the sequence of actions taken, each row {wheel, steps}
+     *         (both matching spin(wheel, steps)'s own 1-based numbering).
+     */
+    public int[][] solve(SlotMachine machine, int n) {
         ArrayList<int[]> actions = new ArrayList<int[]>();
         align(machine, n, actions);
         return actions.toArray(new int[0][]);
@@ -97,7 +114,7 @@ public class SlotMachineContest
                     bestSteps = step;
                 }
                 if (k == n) {
-                    break; // already the best a wheel can do, stop scanning it.
+                    break; 
                 }
             }
             int back = ((bestSteps - stepsScanned) % n + n) % n;
@@ -127,13 +144,13 @@ public class SlotMachineContest
                 if (j == i) {
                     continue;
                 }
-                move(machine, j, n - 1, actions); // one step "backward"
+                move(machine, j, n - 1, actions); 
                 if (machine.distinctSymbols() == n) {
                     found = j;
                 }
-                move(machine, j, 1, actions); // undo j, back to phase-1 spread
+                move(machine, j, 1, actions); 
             }
-            move(machine, i, n - 1, actions); // undo i
+            move(machine, i, n - 1, actions); 
             successorOf[i] = found;
         }
         return successorOf;

@@ -1,0 +1,6 @@
+#BlueJ class context
+#Thu Oct 08 16:23:24 COT 2026
+comment0.target=AcceptanceTestC2
+comment0.text=\r\n Acceptance test - Cycle 2.\r\n\r\n Pre-made scenario that, on top of the same 5 steps from Cycle 1, also\r\n demonstrates the capabilities added in Cycle 2\: swap, lock/unlock, and\r\n the deterministic spin via spin(String[]) (setting an exact\r\n configuration in one shot). Ends in jackpot guaranteed, not by luck.\r\n\r\n Runs visible, same as AcceptanceTestC1, so it can be demonstrated live\r\n (Canvas + "JACKPOT\!" JOptionPane).\r\n\r\n To run it\: object bench > right-click the class > new AcceptanceTestC2()\r\n > right-click the object > run().\r\n\r\n @author Juan Sebasti\u00E1n Pulido G\u00F3mez - Julian Rodr\u00EDguez P\u00E9rez\r\n @version October 2026\r\n
+comment1.target=void run()
+numComments=2

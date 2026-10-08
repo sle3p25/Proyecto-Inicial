@@ -145,6 +145,15 @@ public class SlotMachine
         syncVisualState();
         succeed();
     }
+    
+    /**
+     * @return true if the machine's visual component is currently shown
+     *         (makeVisible() was called more recently than makeInvisible(),
+     *         or the machine was just created and has never been toggled).
+     */
+    public boolean isVisible() {
+        return visible;
+    }
 
     /**
      * Delete a wheel on the indicated position.
@@ -462,6 +471,7 @@ public class SlotMachine
         refreshShapes();
         succeed();
     }
+
      /**
      * Locks a wheel
      */
