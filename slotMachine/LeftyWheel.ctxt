@@ -1,0 +1,10 @@
+#BlueJ class context
+#Fri Oct 09 00:08:02 COT 2026
+comment0.target=LeftyWheel
+comment1.target=LeftyWheel()
+comment2.params=random
+comment2.target=LeftyWheel(java.util.Random)
+comment3.params=leftNeighbor
+comment3.target=boolean spin(Wheel)
+comment4.target=WheelShape newShape()
+numComments=5

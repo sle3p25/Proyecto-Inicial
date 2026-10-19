@@ -1,0 +1,10 @@
+#BlueJ class context
+#Thu Oct 08 23:06:43 COT 2026
+comment0.target=EphemeralSymbol
+comment0.text=\r\n EphemeralSymbol.\r\n Shrinks a little every time it is selected (after a spin, an advance,\r\n or a manual place), down to a floor so it never disappears entirely\r\n\r\n @author Juan Sebasti\u00E1n Pulido G\u00F3mez - Julian Rodr\u00EDguez P\u00E9rez\r\n @version October 2026\r\n
+comment1.params=color
+comment1.target=EphemeralSymbol(java.lang.String)
+comment2.target=void onSelected()
+comment3.target=int getSize()
+comment3.text=\r\n @return this symbol's current size\: starts at INITIAL_SIZE and\r\n         shrinks by one on every selection, never below MIN_SIZE.\r\n
+numComments=4

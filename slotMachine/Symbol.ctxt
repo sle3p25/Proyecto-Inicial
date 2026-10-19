@@ -1,0 +1,15 @@
+#BlueJ class context
+#Thu Oct 08 23:06:12 COT 2026
+comment0.target=Symbol
+comment0.text=\r\n Symbol.\r\n One colored symbol placed on a wheel. This class is abstract\: a symbol is always created\r\n as one of its concrete types.\r\n\r\n @author Juan Sebasti\u00E1n Pulido G\u00F3mez - Julian Rodr\u00EDguez P\u00E9rez\r\n @version October 2026\r\n
+comment1.params=color
+comment1.target=Symbol(java.lang.String)
+comment2.target=java.lang.String getColor()
+comment2.text=\r\n @return this symbol's color.\r\n
+comment3.target=void onSelected()
+comment3.text=\r\n Called every time this symbol becomes the one currently showing on\r\n a wheel (after a spin, an advance, or a manual place). Each concrete symbol\r\n type decides what, if anything, happens; the default does nothing.\r\n
+comment4.target=int getSize()
+comment4.text=\r\n @return this symbol's current size, used only for rendering.\r\n         MAX_SIZE by default; EphemeralSymbol overrides this with\r\n         its own shrinking size.\r\n
+comment5.target=boolean isVisible()
+comment5.text=\r\n @return true if this symbol is currently visible, used only for\r\n         rendering. True by default; ShySymbol overrides this with\r\n         its own toggling visibility.\r\n
+numComments=6

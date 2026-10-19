@@ -2,24 +2,26 @@
 /**
  * Wheel.
  * Represents a slot machine's wheel.
+ * 
+ * This class is abstract: a wheel is always created as one of its concrete types.
  *
  * @author Juan Pulido - Julian Rodriguez
  * @version September 5
  */
 import java.util.Random;
 
-public class Wheel
+public abstract class Wheel
 {
     private Symbols symbols;
-    private String currentSymbol;
-    private Random random;
+    protected Symbol currentSymbol;
+    protected Random random;
     private boolean locked;
-    private int currentIndex;
+    protected int currentIndex;
 
     /** Create a roulette wheel without symbols, using a normal
      *  (non-seeded) random number generator to pick the symbol on each spin.
      */
-    public Wheel(){
+    protected Wheel(){
         this(new Random());
     }
 
@@ -36,12 +38,13 @@ public class Wheel
      * @param random the random number generator used to pick the index
      *               of the symbol shown after a spin.
      */
-    public Wheel(Random random){
+    protected Wheel(Random random){
         symbols = new Symbols();
         this.random = random;
         locked = false;
         currentIndex = -1;
     }
+    
     /**
      * To lock 
      */
@@ -55,6 +58,7 @@ public class Wheel
     public void unlock() {
         locked = false;
     }
+    
     /**
      * Checks whether the specified wheel is locked. Returns true if locked, 
      * false otherwise.
@@ -64,29 +68,83 @@ public class Wheel
     }
 
     /**
-     * add a color
+     * add a symbol of the default ("normal") type and the given color.
      */
     public void addSymbol (int pos, String color){
-        symbols.add(pos, color);
+        addSymbol("normal", pos, color);
     }
 
     /**
-     * Choose the symbol that becomes visible on this wheel.
-     * For this delivery the choice is random, as a real slot machine
-     * simulator behaves; the source of randomness is the Random instance
-     * supplied to this wheel (see the constructors above).
+     * add a symbol of the given type and color.
+     * @param type one of "normal", "ephemeral", "shy".
+     * @return true if the type was recognized and the symbol was added.
      */
-    public boolean spin(){
-        if (locked) {
-            return false;
-        }
-        if (symbols.isEmpty()){
-            return false;
-        }
-        int i = random.nextInt(symbols.size());
-        currentIndex = i;
-        currentSymbol = symbols.toArray()[i];
+    public boolean addSymbol(String type, int pos, String color){
+        return symbols.add(pos, type, color);
+    }
+    
+    /**
+     * Choose the symbol that becomes visible on this wheel. Each concrete
+     * wheel type decides how; see the class comment of each subclass.
+     * 
+     * @param leftNeighbor the wheel immediately to the left of this one in
+     *                     the machine, or null if this is the leftmost
+     *                     wheel. Most wheel types ignore it; LeftyWheel
+     *                     uses it to copy that neighbor's current symbol.
+     */
+    public abstract boolean spin(Wheel leftNeighbor);
+    
+    /**
+     * @return true if this wheel can be locked.
+     */
+    public boolean canBeLocked(){
         return true;
+    }
+    
+    /**
+     * @return true if this wheel can be swapped with another one.
+     */
+    public boolean canBeSwapped(){
+        return true;
+    }
+    /**
+     * @return true if this wheel can be removed from the machine.
+     */
+    public boolean canBeRemoved(){
+        return true;
+    }
+    
+    /**
+     * @return a new, freshly created visual shape for this wheel, used
+     *         only for rendering. Each wheel type picks its own shape;
+     *         the default is a square (Rectangle), so machines built
+     *         before cycle 4 look exactly as they did before.
+     */
+    public WheelShape newShape(){
+        return new Rectangle();
+    }
+    
+    /**
+     * @return the current symbol's size, for rendering only; the neutral
+     *         maximum size if no symbol is currently selected.
+     */
+    public int getCurrentSymbolSize(){
+        return currentSymbol == null ? Symbol.MAX_SIZE : currentSymbol.getSize();
+    }
+    
+    /**
+     * @return true if the current symbol is visible, for rendering only;
+     *         true if no symbol is currently selected (nothing to hide).
+     */
+    public boolean isCurrentSymbolVisible(){
+        return currentSymbol == null || currentSymbol.isVisible();
+    }
+    
+    /**
+     * The symbol object at the given index on this wheel.
+     */
+    protected Symbol symbolAt(int index){
+        return symbols.get(index);
     }
 
     /**
@@ -98,7 +156,8 @@ public class Wheel
             return false;
         }
         currentIndex = idx;
-        currentSymbol = symbol;
+        currentSymbol = symbolAt(idx);
+        currentSymbol.onSelected();
         return true;
     }
 
@@ -127,7 +186,7 @@ public class Wheel
      * The symbol currently visible on the wheel.
      */
     public String getCurrentSymbol() {
-        return currentSymbol;
+        return currentSymbol == null ? null: currentSymbol.getColor();
     }
 
     /**
@@ -146,7 +205,7 @@ public class Wheel
     public boolean delSymbol(String color) {
         boolean removed = symbols.delete(color);
         if (removed && currentSymbol != null) {
-            currentIndex = indexOf(currentSymbol);
+            currentIndex = indexOf(currentSymbol.getColor());
         }
         return removed;
     }
@@ -165,7 +224,8 @@ public class Wheel
         }
         int size = symbols.size();
         currentIndex = (currentIndex + 1) % size;
-        currentSymbol = symbols.toArray()[currentIndex];
+        currentSymbol = symbolAt(currentIndex);
+        currentSymbol.onSelected();
         return true;
     }
     

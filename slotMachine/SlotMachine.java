@@ -20,6 +20,7 @@ public class SlotMachine
     private static final String BODY_COLOR = "dimgray";
     private static final String BODY_JACKPOT_COLOR = "gold";
     private static final String JACKPOT_LIGHT_COLOR = "gold";
+    private static final int PIXELS_PER_SIZE_UNIT = 4;
 
     /**
      * Pool of valid CSS color names (recognized by Canvas/Rectangle for
@@ -40,7 +41,7 @@ public class SlotMachine
     };
 
     private ArrayList<Wheel> wheels;
-    private ArrayList<Rectangle> wheelShapes;
+    private ArrayList<WheelShape> wheelShapes;
     private Rectangle jackpotShape;
     private Rectangle bodyShape;
     private boolean visible;
@@ -71,7 +72,7 @@ public class SlotMachine
      */
     public SlotMachine(StepPacer pacer){
         wheels = new ArrayList<Wheel>();
-        wheelShapes = new ArrayList<Rectangle>();
+        wheelShapes = new ArrayList<WheelShape>();
         jackpotShape = null;
         bodyShape = null;
         visible = false;
@@ -128,10 +129,37 @@ public class SlotMachine
      * Adds an empty wheel on the indicated position.
      */
     public void addWheel(int pos) {
+        addWheel("normal", pos);
+    }
+    
+    /**
+     * Adds an empty wheel on the indicated position.
+     */
+    public void addWheel(String type, int pos) {
+        Wheel w = createWheel(type);
+        if(w==null){
+            fail("Unknown wheel type: " + type);
+            return;
+        }
         int index = clamp(pos - 1, 0, wheels.size());
-        wheels.add(index, new Wheel());
+        wheels.add(index, w);
         rebuildShapes();
         succeed();
+    }
+    
+    /**
+     * Translates a wheel type name into the matching concrete Wheel,
+     * comparing strings.
+     */
+    private Wheel createWheel(String type){
+        if(type.equals("normal")){
+            return new NormalWheel();
+        }  else if (type.equals("lefty")){
+            return new LeftyWheel();
+        } else if (type.equals("rebel")){
+            return new RebelWheel();
+        }
+        return null;
     }
 
     public void makeVisible() {
@@ -164,22 +192,39 @@ public class SlotMachine
             return;
         }
         int index = clamp(pos - 1, 0, wheels.size() -1);
+        if(!wheels.get(index).canBeRemoved()){
+            fail("This wheel cannot be removed.");
+            return;
+        }
         wheels.remove(index);
         rebuildShapes();
         succeed();
     }
 
     /**
-     * Add a symbol of a given color.
+     * Add a symbol of the default ("normal") type and the given color to
+     * the wheel at the given position
      */
-    public void addSymbol (int pos, String color){
+    public void addSymbol(int pos, String color){
+        addSymbol("normal", pos, color);
+    }
+    
+    /**
+     * Add a symbol of the given type and color to the wheel at the given
+     * position.
+     * @param type one of "normal", "ephemeral", "shy".
+     */
+    public void addSymbol(String type, int pos, String color){
         if ( wheels.isEmpty()){
             fail("There's no wheels in the machine to add the symbol.");
             return;
         }
         int val = clamp(pos-1,0,wheels.size()-1);
         Wheel w = wheels.get(val);
-        w.addSymbol(w.size()+1,color);
+        if (!w.addSymbol(type, w.size()+1,color)){
+            fail("Unknown symbol type: " + type);
+            return;
+        }
         succeed();
     }
 
@@ -218,7 +263,8 @@ public class SlotMachine
             return;
         }
         int val = clamp(wheel - 1, 0, wheels.size() - 1);
-        if (wheels.get(val).spin()) {
+        Wheel leftNeighbor = val == 0 ? null : wheels.get(val - 1);
+        if (wheels.get(val).spin(leftNeighbor)) {
             refreshShapes();
             succeed();
             announceJackpotIfReached();
@@ -236,8 +282,9 @@ public class SlotMachine
             return;
         }
         boolean any = false;
-        for (Wheel w : wheels) {
-            any = w.spin() || any;
+        for (int i = 0; i < wheels.size(); i++) {
+            Wheel leftNeighbor = i == 0 ? null : wheels.get(i-1);
+            any = wheels.get(i).spin(leftNeighbor) || any;
         }
         if (any) {
             refreshShapes();
@@ -347,16 +394,15 @@ public class SlotMachine
      * wheel. Called whenever the number of wheels changes.
      */
     private void rebuildShapes() {
-        for (Rectangle r : wheelShapes) {
-            r.makeInvisible();
+        for (WheelShape s : wheelShapes) {
+            s.makeInvisible();
         }
         wheelShapes.clear();
         for (int i = 0; i < wheels.size(); i++) {
-            Rectangle r = new Rectangle();
-            r.changeSize(40, 40);
-            r.moveHorizontal(SLOT_X0 + i * SLOT_WIDTH - 70);
-            r.moveVertical(SLOT_Y - 15);
-            wheelShapes.add(r);
+            WheelShape s = wheels.get(i).newShape();
+            s.moveHorizontal(SLOT_X0 + i * SLOT_WIDTH - 70);
+            s.moveVertical(SLOT_Y - 15);
+            wheelShapes.add(s);
         }
 
         int bannerWidth = Math.max(40, wheels.size() * SLOT_WIDTH);
@@ -387,10 +433,14 @@ public class SlotMachine
      */
     private void refreshShapes() {
         for (int i = 0; i < wheelShapes.size() && i < wheels.size(); i++) {
-            String current = wheels.get(i).getCurrentSymbol();
-            if (current != null) {
-                wheelShapes.get(i).changeColor(current);
+            Wheel w = wheels.get(i);
+            WheelShape shape = wheelShapes.get(i);
+            String current = w.getCurrentSymbol();
+            if(current != null){
+                shape.changeColor(current);
             }
+            int pixelSize = w.getCurrentSymbolSize() * PIXELS_PER_SIZE_UNIT;
+            shape.changeSize(pixelSize, pixelSize);
         }
         boolean jackpot = isJackpot();
         if (jackpotShape != null) {
@@ -414,13 +464,16 @@ public class SlotMachine
                 bodyShape.makeInvisible();
             }
         }
-        for (Rectangle r : wheelShapes) {
-            if (visible) {
-                r.makeVisible();
+        for (int i = 0; i < wheelShapes.size(); i++){
+            WheelShape shape = wheelShapes.get(i);
+            boolean symbolVisible = i >= wheels.size() || wheels.get(i).isCurrentSymbolVisible();
+            if (visible && symbolVisible){
+                shape.makeVisible();
             } else {
-                r.makeInvisible();
+                shape.makeInvisible();
             }
         }
+    
         if (jackpotShape != null) {
             if (visible && isJackpot()) {
                 jackpotShape.makeVisible();
@@ -437,8 +490,8 @@ public class SlotMachine
     }
 
     public void exit() {
-        for (Rectangle r : wheelShapes) {
-            r.makeInvisible();
+        for (WheelShape s : wheelShapes) {
+            s.makeInvisible();
         }
         if (jackpotShape != null) {
             jackpotShape.makeInvisible();
@@ -465,6 +518,10 @@ public class SlotMachine
         }
         int i1 = clamp(wheel1 - 1, 0, wheels.size() - 1);
         int i2 = clamp(wheel2 - 1, 0, wheels.size() - 1);
+        if(!wheels.get(i1).canBeSwapped() || !wheels.get(i2).canBeSwapped()){
+            fail("One of the selected wheels cannot be swapped.");
+            return;
+        }
         Wheel temp = wheels.get(i1);
         wheels.set(i1, wheels.get(i2));
         wheels.set(i2, temp);
@@ -481,9 +538,14 @@ public class SlotMachine
             return;
         }
         int idx = clamp(wheel - 1, 0, wheels.size() - 1);
+        if (!wheels.get(idx).canBeLocked()){
+            fail("This wheel cannot be locked.");
+            return;
+        }
         wheels.get(idx).lock();
         succeed();
     }
+    
     /**
      * Unlocks a wheel
      */

@@ -1,0 +1,7 @@
+#BlueJ class context
+#Thu Oct 08 23:15:25 COT 2026
+comment0.target=NormalSymbol
+comment0.text=\r\n NormalSymbol.\r\n \r\n The default symbol type\: reacts to nothing.\r\n\r\n @author Juan Sebasti\u00E1n Pulido G\u00F3mez - Julian Rodr\u00EDguez P\u00E9rez\r\n @version October 2026\r\n
+comment1.params=color
+comment1.target=NormalSymbol(java.lang.String)
+numComments=2

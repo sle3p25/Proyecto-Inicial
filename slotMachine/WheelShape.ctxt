@@ -1,0 +1,15 @@
+#BlueJ class context
+#Thu Oct 08 22:50:15 COT 2026
+comment0.target=WheelShape
+comment0.text=\r\n WheelShape.\r\n Whatever a wheel draws itself as on the Canvas\: something that can be\r\n shown, hidden, moved, resized and recolored. Rectangle, Circle and\r\n Triangle each implement this the same way they always drew themselves, so SlotMachine can treat\r\n "the shape for this wheel" the same way no matter which one it is --\r\n it never needs to ask which concrete shape it has.\r\n\r\n @author Juan Sebasti\u00E1n Pulido G\u00F3mez - Julian Rodr\u00EDguez P\u00E9rez\r\n @version October 2026\r\n
+comment1.target=void makeVisible()
+comment2.target=void makeInvisible()
+comment3.params=distance
+comment3.target=void moveHorizontal(int)
+comment4.params=distance
+comment4.target=void moveVertical(int)
+comment5.params=newHeight newWidth
+comment5.target=void changeSize(int, int)
+comment6.params=newColor
+comment6.target=void changeColor(java.lang.String)
+numComments=7

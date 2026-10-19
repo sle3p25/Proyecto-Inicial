@@ -1,0 +1,10 @@
+#BlueJ class context
+#Thu Oct 08 23:07:12 COT 2026
+comment0.target=ShySymbol
+comment0.text=\r\n ShySymbol.\r\n Toggles between visible and invisible every time it is selected (after\r\n a spin, an advance, or a manual place). Its color and its visibility\r\n are independent\: isJackpot()/configuration()/distinctSymbols() always\r\n use getColor(), regardless of whether this symbol is currently visible\r\n -- isVisible() exists purely for rendering, decided separately.\r\n\r\n @author Juan Sebasti\u00E1n Pulido G\u00F3mez - Julian Rodr\u00EDguez P\u00E9rez\r\n @version October 2026\r\n
+comment1.params=color
+comment1.target=ShySymbol(java.lang.String)
+comment2.target=void onSelected()
+comment3.target=boolean isVisible()
+comment3.text=\r\n @return true if this symbol is currently visible\r\n
+numComments=4

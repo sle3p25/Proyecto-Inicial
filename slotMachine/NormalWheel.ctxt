@@ -1,0 +1,11 @@
+#BlueJ class context
+#Fri Oct 09 00:08:02 COT 2026
+comment0.target=NormalWheel
+comment1.target=NormalWheel()
+comment1.text=\r\n Create a normal wheel without symbols, using a normal random number generator\r\n to pick the symbol on each spin\r\n
+comment2.params=random
+comment2.target=NormalWheel(java.util.Random)
+comment2.text=\r\n Create a normal wheel without symbols, letting the caller decide how to \r\n the symbol shown on each spin is chosen.\r\n \r\n @param random the random number generator used to pick the index of the symbol shown after a spin.\r\n
+comment3.params=leftNeighbor
+comment3.target=boolean spin(Wheel)
+numComments=4

@@ -1,0 +1,32 @@
+#BlueJ class context
+#Fri Oct 09 00:08:02 COT 2026
+comment0.target=SlotMachineC4Test
+comment1.target=void setUp()
+comment1.text=\r\n Sets up the test fixture before each test execution.\r\n Initializes a fresh SlotMachine instance.\r\n
+comment10.target=void accordingPgRpShouldShrinkEphemeralSymbolDownToAFloor()
+comment10.text=\r\n Verifies that an ephemeral symbol shrinks every time it is\r\n selected, down to a floor (it never reaches zero or a negative\r\n size).\r\n
+comment11.target=void accordingPgRpShouldGrowGrowingSymbolUpToACeiling()
+comment11.text=\r\n Verifies that a growing symbol grows every time it is selected, up\r\n to a ceiling (it never passes the maximum size).\r\n
+comment12.target=void accordingPgRpShouldToggleShySymbolVisibilityOnEachSelection()
+comment12.text=\r\n Verifies that a shy symbol toggles its visibility every time it is\r\n selected\: visible, then invisible, then visible again.\r\n
+comment13.target=void accordingPgRpShouldFailToAddSymbolOfUnknownType()
+comment13.text=\r\n Verifies that adding a symbol of an unrecognized type fails instead\r\n of silently creating a normal symbol.\r\n
+comment14.target=void accordingPgRpShouldStillComputeJackpotWhenAShySymbolIsInvisible()
+comment14.text=\r\n Verifies that a shy symbol that has toggled itself invisible still\r\n counts for isJackpot()\: the visual component being off should not\r\n change the underlying logic, only how it is drawn.\r\n
+comment2.target=void accordingPgRpShouldNotLockARebelWheel()
+comment2.text=\r\n Verifies that a rebel wheel refuses to be locked.\r\n
+comment3.target=void accordingPgRpShouldNotSwapARebelWheel()
+comment3.text=\r\n Verifies that a rebel wheel refuses to be swapped with another wheel.\r\n
+comment4.target=void accordingPgRpShouldNotRemoveARebelWheel()
+comment4.text=\r\n Verifies that a rebel wheel refuses to be removed from the machine.\r\n
+comment5.target=void accordingPgRpShouldStillSpinARebelWheel()
+comment5.text=\r\n Verifies that a rebel wheel still spins normally\: the only thing it\r\n refuses is being locked, swapped, or removed.\r\n
+comment6.target=void accordingPgRpShouldCopyLeftNeighborWhenSpinningALeftyWheel()
+comment6.text=\r\n Verifies that a lefty wheel copies the symbol its left neighbor is\r\n currently showing, instead of picking one at random.\r\n
+comment7.target=void accordingPgRpShouldSpinNormallyWhenLeftyWheelHasNoLeftNeighbor()
+comment7.text=\r\n Verifies that a lefty wheel with no left neighbor (it is the leftmost\r\n wheel in the machine) falls back to a normal random spin instead of\r\n failing, since there is no neighbor to copy.\r\n
+comment8.target=void accordingPgRpShouldFailWhenLeftyWheelDoesNotHaveNeighborsColor()
+comment8.text=\r\n Verifies that a lefty wheel fails to spin when its left neighbor's\r\n current color is not one of its own symbols.\r\n
+comment9.target=void accordingPgRpShouldFailToAddWheelOfUnknownType()
+comment9.text=\r\n Verifies that adding a wheel of an unrecognized type fails instead of\r\n silently creating a normal wheel.\r\n
+numComments=15

@@ -13,38 +13,90 @@ import java.util.ArrayList;
 
 public class Symbols
 {
-    private ArrayList<String> colors;
+    private ArrayList<Symbol> colors;
 
     /**
      * Create an empty collection of symbols.
      */
     public Symbols(){
-        colors = new ArrayList<String>();
+        colors = new ArrayList<Symbol>();
     }
 
     /**
-     * Add a color at the given position. Positions are 1-based; a
-     * position below 1 is clamped to 1 and a position past the end is
-     * clamped to the end.
+     * Add a symbol of the default ("normal") type and the given color at
+     * the given position. Kept so every call site from cycles 1-3 keeps
+     * working unchanged.
      */
     public void add(int pos, String color){
-        int val = clamp(pos - 1, 0, colors.size());
-        colors.add(val, color);
+        add(pos, "normal", color);
     }
 
+    /**
+     * Add a symbol of the given type and color at the given position.
+     * Positions are 1-based; a position below 1 is clamped to 1 and a
+     * position past the end is clamped to the end.
+     * @param type one of "normal", "ephemeral", "shy", "growing".
+     * @return true if the type was recognized and the symbol was added.
+     */
+    public boolean add(int pos, String type, String color){
+        Symbol s = createSymbol(type, color);
+        if (s == null) {
+            return false;
+        }
+        int val = clamp(pos - 1, 0, colors.size());
+        colors.add(val, new NormalSymbol(color));
+        return true;
+    }
+    
+    /**
+     * Translates a symbol type name into the matching concrete Symbol,
+     * comparing strings.
+     * @return the new symbol, or null if the type is not recognized.
+     */
+    private Symbol createSymbol(String type, String color){
+        if (type.equals("normal")){
+            return new NormalSymbol(color);
+        } else if (type.equals("ephemeral")){
+            return new EphemeralSymbol(color);
+        } else if (type.equals("shy")){
+            return new ShySymbol(color);
+        } else if (type.equals("growing")){
+            return new GrowingSymbol(color);
+        }
+        return null;
+    }
+    
     /**
      * Remove one occurrence of the given color.
      * @return true if the color was present and was removed.
      */
     public boolean delete(String color){
-        return colors.remove(color);
+        for (int i = 0; i < colors.size(); i++){
+            if(colors.get(i).getColor().equals(color)){
+                colors.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * @return true if the given color belongs to this collection.
      */
     public boolean contains(String color){
-        return colors.contains(color);
+        for (Symbol s: colors){
+            if(s.getColor().equals(color)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * @return the symbol object at the given index
+     */
+    public Symbol get(int index){
+        return colors.get(index);
     }
 
     /**
@@ -52,7 +104,11 @@ public class Symbols
      * position 1.
      */
     public String[] toArray(){
-        return colors.toArray(new String[0]);
+        String[] result = new String[colors.size()];
+        for (int i = 0; i < colors.size(); i++){
+            result[i] = colors.get(i).getColor();
+        }
+        return result;
     }
 
     /**
@@ -73,7 +129,11 @@ public class Symbols
      * @return the number of distinct colors in the collection.
      */
     public int distinctCount(){
-        return (int) colors.stream().distinct().count();
+        ArrayList<String> names = new ArrayList<String>();
+        for(Symbol s: colors){
+            names.add(s.getColor());
+        }
+        return(int) colors.stream().distinct().count();
     }
 
     private int clamp(int value, int min, int max) {
